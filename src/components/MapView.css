@@ -1,0 +1,241 @@
+.map-view-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.side-list-panel {
+  width: 300px;
+  background: var(--bg-color);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.side-list-title {
+  padding: 1rem;
+  font-size: 1.125rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.results-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  border-left: 4px solid var(--border);
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Color coding for side list items */
+.result-card.cat-hospital { border-left-color: var(--cat-hospital); }
+.result-card.cat-repair { border-left-color: var(--cat-repair); }
+.result-card.cat-food { border-left-color: var(--cat-food); }
+.result-card.cat-pharmacy { border-left-color: var(--cat-pharmacy); }
+.result-card.cat-police { border-left-color: var(--cat-police); }
+.result-card.cat-fuel { border-left-color: var(--cat-fuel); }
+
+.result-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.result-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.leaflet-container-wrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  z-index: 1; /* Keep leaflet z-index below custom navbars */
+}
+
+/* Leaflet routing overrides */
+.leaflet-routing-container {
+  display: none !important; /* Hide default ugly leaflet routing instructions text, we use our own summary */
+}
+
+/* Place Info Overlay Overlaying the Map */
+.place-info-overlay {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 450px;
+  z-index: 1000;
+  padding: 1.5rem;
+  animation: slideUp 0.3s ease-out;
+}
+
+.close-panel-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.close-panel-btn:hover {
+  background: white;
+  color: var(--text-primary);
+}
+
+.place-info-overlay h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  padding-right: 2rem;
+}
+
+.info-address {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.info-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.info-badge {
+  background: var(--bg-color);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.capitalize { text-transform: capitalize; }
+.info-badge.highlight {
+  background: rgba(245, 158, 11, 0.1);
+  color: #D97706;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.info-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.info-actions .btn {
+  flex: 1;
+  font-size: 0.875rem;
+  padding: 0.75rem;
+}
+
+.route-details-panel {
+  background: rgba(248, 250, 252, 0.7);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.route-details-panel h4 {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-dark);
+}
+
+.route-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.calculating-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  animation: pulse 1.5s infinite;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+/* Leaflet specific overrides */
+.leaflet-container {
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  .map-view-container {
+    flex-direction: column-reverse;
+  }
+  
+  .side-list-panel {
+    width: 100%;
+    height: 40%;
+    border-right: none;
+    border-top: 1px solid var(--border);
+  }
+  
+  .leaflet-container-wrapper {
+    height: 60%;
+  }
+}
